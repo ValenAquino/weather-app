@@ -183,7 +183,37 @@ body {
 /* ===== Responsive ===== */
 
 @media (max-width: 768px) {
+    body {
+        overflow-y:scroll;
+    }
     
+    .app {
+        grid-template-columns: 1fr;
+        background: none;
+    }
+
+    .container, 
+    .aside {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+    }
+    
+    .container {
+        padding-top: 1em;
+    }
+
+    .main-weather {
+        width: 100%;
+    }
+
+    .temp {
+        font-size: 16vh;
+    }
+
+    .city-name {
+        font-size: 16vw;
+    }
 }
 
 /* ===== Horizontal phones vertical tablets ===== */
