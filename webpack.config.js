@@ -14,14 +14,14 @@ module.exports = {
       filename: "./index.html"
     }),
     new MiniCssExtractPlugin({
-        filename: "style.css"
+        filename: "./style.css"
     })
   ],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         test: /\.html$/i,
