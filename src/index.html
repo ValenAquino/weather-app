@@ -22,9 +22,9 @@
         </div>
         <div class="aside">
             <form class="location-form">
-                <input class="search" type="text" name="city" id="city" placeholder="city" autocomplete="off"/>
-                <input class="search" type="text" name="country" id="country" placeholder="country" autocomplete="off"/>
-                <button type="submit">
+                <input class="search" type="text" name="city" id="city-input" placeholder="city" autocomplete="off" required/>
+                <input class="search" type="text" name="country" id="country-input" placeholder="country" autocomplete="off" required/>
+                <button id="submit-btn" type="submit">
                     <span class="material-symbols-rounded">search</span>
                 </button>
             </form>
@@ -36,15 +36,15 @@
             <div class="aside-container weather-details">
                 <h3>Weather details</h3>
                 <div class="cloudy">
-                    <span>Cloudy</span>
-                    <span id="Cloudy"></span>
+                    <span>Cloudy:</span>
+                    <span id="cloudy"></span>
                 </div>
                 <div class="humidity">
-                    <span>Humidity</span>
+                    <span>Humidity:</span>
                     <span id="humidity"></span>
                 </div>
                 <div class="wind">
-                    <span>Wind</span>
+                    <span>Wind:</span>
                     <span id="wind"></span>
                 </div>
             </div>
