@@ -81,10 +81,12 @@ body {
 
 .main-weather {
     height: max-content;
-    width: 60%;
+    width: 70%;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 55% 15%;
     align-items: center;
+    justify-items: center;
+    padding: 1em;
 }
 
 .temp {
@@ -106,6 +108,14 @@ body {
     grid-column-start: 1;
     grid-column-end: 4;
     font-weight: 500;
+}
+
+.icon {
+    display: grid;
+    align-self: center;
+    justify-self: start;
+    width: auto;
+    height: auto;
 }
 
 /* ===== Aside ===== */

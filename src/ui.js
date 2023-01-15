@@ -1,21 +1,21 @@
 export class UI {
     constructor() {
         this.temp = document.querySelector('.temp');
-        
         this.location = document.querySelector('.city-name');
         this.cond = document.querySelector('.city-cond');
         this.time = document.querySelector('.city-time');
         this.date = document.querySelector('.city-date');
-        
+        this.icon = document.querySelector('#icon-weather');
         this.cloudy = document.querySelector("#cloudy");
         this.humidity = document.querySelector("#humidity");
         this.wind = document.querySelector("#wind");
     }
     
     async render(weather) {
-        let weather_data = await weather.fetchData();
+        let weather_data = await weather.fetchCurrentData();
+        let forecast_data = await weather.fetch5DaysData();
 
-        console.log(weather_data)
+        console.log(forecast_data);
 
         if(weather_data == 404) {
             alert("Ubicación no encontrada");
@@ -34,6 +34,10 @@ export class UI {
         this.cond.textContent = weather_data.weather[0].main;
         this.time.textContent = `${date.hours}:${date.minutes}`;
         this.date.textContent = `${date.day}, ${date.month} ${date.date}`;
+        this.icon.setAttribute(
+            "src", 
+            `http://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`
+        );
       }
 
       renderAside(weather_data) {
