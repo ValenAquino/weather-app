@@ -1,11 +1,14 @@
 export class UI {
     constructor() {
+        // main widget
         this.temp = document.querySelector('.temp');
         this.location = document.querySelector('.city-name');
         this.cond = document.querySelector('.city-cond');
         this.time = document.querySelector('.city-time');
         this.date = document.querySelector('.city-date');
         this.icon = document.querySelector('#icon-weather');
+        
+        // aside info
         this.cloudy = document.querySelector("#cloudy");
         this.humidity = document.querySelector("#humidity");
         this.wind = document.querySelector("#wind");
@@ -21,7 +24,7 @@ export class UI {
             alert("Ubicación no encontrada");
         }
         else {
-            this.location.textContent = weather.city;
+            this.location.textContent = capitalizeFirstLetter(weather.city);
             this.renderMainContent(weather_data);
             this.renderAside(weather_data);
         }
@@ -35,9 +38,7 @@ export class UI {
         this.time.textContent = `${date.hours}:${date.minutes}`;
         this.date.textContent = `${date.day}, ${date.month} ${date.date}`;
         this.icon.setAttribute(
-            "src", 
-            `http://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`
-        );
+            "src", `https://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`);
       }
 
       renderAside(weather_data) {
@@ -47,6 +48,9 @@ export class UI {
       }
 }
 
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function dateBuilder(timezone) {
     const nowInLocalTime = Date.now()  + 1000 * (timezone / 3600);

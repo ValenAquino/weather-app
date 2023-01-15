@@ -69,6 +69,10 @@ body {
     grid-template-columns: 67% 33%;
 }
 
+.tick {
+    animation: tick .5s !important;
+}
+
 /* ===== Container ===== */
 
 .container {
@@ -148,6 +152,10 @@ body {
 .latest-searches {
     display: grid;
     width: 100%;
+}
+
+.weather-details {
+    margin-top: 0.5em;
 }
 
 /* ===== Inputs ===== */
@@ -261,4 +269,18 @@ body {
         font-size: 8vw;
     }
 
+}
+
+/* ===== Animations ===== */
+
+@keyframes tick {
+    0% {
+        transform: scale(0);    
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }

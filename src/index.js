@@ -23,3 +23,8 @@ function handleRequest(city, country) {
     let weather = new Weather(city, country);
     ui.render(weather);
 }
+
+// IIFE
+(()=>{
+    handleRequest("Bernal", "Ar");
+})();
