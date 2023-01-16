@@ -1,8 +1,8 @@
 export class UI {
     constructor() {
         // main widget
-        this.temp = document.querySelector('.temp');
         this.location = document.querySelector('.city-name');
+        this.temp = document.querySelector('.temp');
         this.cond = document.querySelector('.city-cond');
         this.time = document.querySelector('.city-time');
         this.date = document.querySelector('.city-date');
@@ -12,13 +12,18 @@ export class UI {
         this.cloudy = document.querySelector("#cloudy");
         this.humidity = document.querySelector("#humidity");
         this.wind = document.querySelector("#wind");
+
+        // aside latest searches
+        this.fst_search = document.querySelector("#fst-search");
+        this.snd_search = document.querySelector("#snd-search");
+        this.trd_search = document.querySelector("#trd-search");
     }
     
     async render(weather) {
         let weather_data = await weather.fetchCurrentData();
         let forecast_data = await weather.fetch5DaysData();
 
-        console.log(forecast_data);
+        // console.log(forecast_data);
 
         if(weather_data == 404) {
             alert("Ubicación no encontrada");
@@ -45,6 +50,10 @@ export class UI {
         this.humidity.textContent = weather_data.main.humidity;
         this.wind.textContent =  weather_data.wind.speed + ' m/s';
         this.cloudy.textContent = weather_data.clouds.all + '%';
+      }
+
+      addSearch() {
+        
       }
 }
 

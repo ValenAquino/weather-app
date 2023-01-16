@@ -22,6 +22,7 @@ export class Weather {
             return data;
         }
         else {
+
             return data.cod;
         }
     }
@@ -29,6 +30,7 @@ export class Weather {
     async fetchCurrentData() {
         let req = this.getCurrentWeather();
         let data = await this.fetchData(req);
+
         return data;
     }
 
