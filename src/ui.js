@@ -1,85 +1,105 @@
-export class UI {
+import { handleRequest } from "./index.js";
+class UI {
+
     constructor() {
-        // main widget
+        this.widget = new Widget();
+        this.aside = new Aside();
+        this.searchHandler = new SearchHandler();
+    }
+    
+    render(weather_data) {
+        if(weather_data == 404) {
+            alert("Ubicación no encontrada");
+        }
+        else {
+            this.widget.render(weather_data);
+            this.aside.render(weather_data);
+        }
+    }
+    
+    addSearch(weather) {
+        let btn = this.searchHandler.addSearch(weather);
+        btn.addEventListener('click', (e) => {
+            handleRequest(weather.city, weather.country);
+        });
+    }
+
+}
+
+class Widget {
+
+    constructor() {
         this.location = document.querySelector('.city-name');
         this.temp = document.querySelector('.temp');
         this.cond = document.querySelector('.city-cond');
         this.time = document.querySelector('.city-time');
         this.date = document.querySelector('.city-date');
         this.icon = document.querySelector('#icon-weather');
-        
-        // aside info
+        this.url = "https://openweathermap.org/img/wn/";
+    }
+
+    renderDate(timezone) {
+        let date = dateBuilder(timezone);
+        this.time.textContent = `${date.hours}:${date.minutes}`;
+        this.date.textContent = `${date.day}, ${date.month} ${date.date}`;
+    }
+    
+    render(weather_data) {
+        this.renderDate(weather_data.timezone);
+        this.location.textContent = weather_data.name;
+        this.temp.textContent = Math.trunc(weather_data.main.temp) + '°';
+        this.cond.textContent = weather_data.weather[0].main;
+        this.icon.setAttribute("src", this.url + `${weather_data.weather[0].icon}@2x.png`);
+      }
+
+}
+
+class Aside {
+
+    constructor() {
         this.cloudy = document.querySelector("#cloudy");
         this.humidity = document.querySelector("#humidity");
         this.wind = document.querySelector("#wind");
-
-        // aside latest searches
-        this.fst_search = document.querySelector("#fst-search");
-        this.snd_search = document.querySelector("#snd-search");
-        this.trd_search = document.querySelector("#trd-search");
-        this.turn = 0;
     }
-    
-    async render(weather) {
-        let weather_data = await weather.fetchCurrentData();
-        let forecast_data = await weather.fetch5DaysData();
 
-        // console.log(forecast_data);
-
-        if(weather_data == 404) {
-            alert("Ubicación no encontrada");
-        }
-        else {
-            this.location.textContent = capitalizeFirstLetter(weather.city);
-            this.renderMainContent(weather_data);
-            this.renderAside(weather_data);
-            this.addSearch(weather);
-        }
-    }
-    
-    renderMainContent(weather_data) {
-        let date = dateBuilder(weather_data.timezone);
-        
-        this.temp.textContent = Math.trunc(weather_data.main.temp) + '°';
-        this.cond.textContent = weather_data.weather[0].main;
-        this.time.textContent = `${date.hours}:${date.minutes}`;
-        this.date.textContent = `${date.day}, ${date.month} ${date.date}`;
-        this.icon.setAttribute(
-            "src", `https://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`);
-      }
-
-    renderAside(weather_data) {
+    render(weather_data) {
         this.humidity.textContent = weather_data.main.humidity;
         this.wind.textContent =  weather_data.wind.speed + ' m/s';
         this.cloudy.textContent = weather_data.clouds.all + '%';
     }
 
+}
+
+class SearchHandler {
+
+    constructor() {
+        this.fst_search = document.querySelector("#fst-search");
+        this.snd_search = document.querySelector("#snd-search");
+        this.trd_search = document.querySelector("#trd-search");
+        this.turn = 0;
+    }
+
     handleNewSearch(btn, search) {
         btn.classList.remove("display_none");
         btn.textContent = `${search.city}, ${search.country}`;
-        btn.addEventListener('click', () => this.render(search));
     }
 
     addSearch(search) {
         switch(this.turn) {
-            case 0: 
-                this.handleNewSearch(this.fst_search, search);
-                this.turn++;
-                break;
-            case 1: 
-                this.handleNewSearch(this.snd_search, search);
-                this.turn++;
-                break;
-            case 2: 
-                this.handleNewSearch(this.trd_search, search);
-                this.turn = 0;
-                break;
+        case 0: 
+            this.handleNewSearch(this.fst_search, search);
+            this.turn++;
+            return this.fst_search;
+        case 1: 
+            this.handleNewSearch(this.snd_search, search);
+            this.turn++;
+            return this.snd_search;
+        case 2: 
+            this.handleNewSearch(this.trd_search, search);
+            this.turn = 0;
+            return this.trd_search;
         }
     }
-}
-
-function capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function dateBuilder(timezone) {
@@ -101,4 +121,9 @@ function dateBuilder(timezone) {
         minutes: millitime.getMinutes(),
         month
     }
+}
+
+export {
+    UI,
+    SearchHandler
 }

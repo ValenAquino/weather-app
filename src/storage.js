@@ -1,6 +1,6 @@
-import { UI } from "./ui";
+import { SearchHandler } from "./ui";
 
-export let ui = new UI();
+export let searchHandler = new SearchHandler();
 
 export class Storage {
 
@@ -9,7 +9,7 @@ export class Storage {
         
         if(storage) {
             this.latest_searches = JSON.parse(storage);
-            this.latest_searches.forEach(search => {ui.addSearch(search)});
+            this.latest_searches.forEach(search => {searchHandler.addSearch(search)});
             return true;
         }
         else {
