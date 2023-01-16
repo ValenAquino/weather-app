@@ -17,6 +17,7 @@ export class UI {
         this.fst_search = document.querySelector("#fst-search");
         this.snd_search = document.querySelector("#snd-search");
         this.trd_search = document.querySelector("#trd-search");
+        this.turn = 0;
     }
     
     async render(weather) {
@@ -32,6 +33,7 @@ export class UI {
             this.location.textContent = capitalizeFirstLetter(weather.city);
             this.renderMainContent(weather_data);
             this.renderAside(weather_data);
+            this.addSearch(weather);
         }
     }
     
@@ -46,15 +48,34 @@ export class UI {
             "src", `https://openweathermap.org/img/wn/${weather_data.weather[0].icon}@2x.png`);
       }
 
-      renderAside(weather_data) {
+    renderAside(weather_data) {
         this.humidity.textContent = weather_data.main.humidity;
         this.wind.textContent =  weather_data.wind.speed + ' m/s';
         this.cloudy.textContent = weather_data.clouds.all + '%';
-      }
+    }
 
-      addSearch() {
-        
-      }
+    handleNewSearch(btn, search) {
+        btn.classList.remove("display_none");
+        btn.textContent = `${search.city}, ${search.country}`;
+        btn.addEventListener('click', () => this.render(search));
+    }
+
+    addSearch(search) {
+        switch(this.turn) {
+            case 0: 
+                this.handleNewSearch(this.fst_search, search);
+                this.turn++;
+                break;
+            case 1: 
+                this.handleNewSearch(this.snd_search, search);
+                this.turn++;
+                break;
+            case 2: 
+                this.handleNewSearch(this.trd_search, search);
+                this.turn = 0;
+                break;
+        }
+    }
 }
 
 function capitalizeFirstLetter(str) {

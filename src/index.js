@@ -1,9 +1,9 @@
 import style from './style.css'
 import { Weather } from './weather';
 import { UI } from './ui';
+import { Storage } from './storage';
 
 const submit_btn = document.querySelector("#submit-btn");
-const search_btns = document.querySelectorAll(".search-btn");
 const ui = new UI();
 let latest_searches = [];
 
@@ -21,32 +21,13 @@ submit_btn.addEventListener("click", (e) => {
     form.reset();
 });
 
-search_btns.forEach(search_btn => {
-    search_btn.addEventListener("click", (e) => {
-        ui.render
-    });
-})
-
-function restore_storage() {
-    let storage = localStorage.getItem("latest");
-    
-    if(storage) {
-        ui.load_latest_searches(storage)   
-    }
-}
-
-function save_storage(weather) {
-    latest_searches.push(weather);
-    localStorage.setItem("latest", JSON.stringify(latest_searches));
-}
-
 function handleRequest(city, country) {
     let weather = new Weather(city, country);
     ui.render(weather);
-    save_storage(weather);
 }
 
 // IIFE
 (()=>{
-    handleRequest("Bernal", "Ar");
+    if(!Storage.restore_storage())
+        handleRequest("Bernal", "Ar");
 })();
