@@ -29,8 +29,6 @@ class UI {
         let body = document.querySelector("#body");
         let bg = '';
 
-        alert(cond);
-    
         if(isDay(dateBuilder(timezone).hours)) {
             bg += 'day';
         }
