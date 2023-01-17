@@ -56,10 +56,10 @@ body {
     font-family: "Rubik", 'Noto Sans', sans-serif;
     overflow: hidden;
     background-image: url(./assets/bg.jpg);
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    background-size:cover;
+    background-attachment: fixed;   
 }
 
 .app {
@@ -71,6 +71,40 @@ body {
 
 .tick {
     animation: tick .5s !important;
+}
+
+/* ===== Backgrounds ===== */
+
+.day-clear {
+    background-image: url(./assets/day/clear.jpg);
+}
+
+.day-cloudy {
+    background-image: url(./assets/day/cloudy.jpg);
+}
+
+.day-rainy {
+    background-image: url(./assets/day/rainy.jpg);
+}
+
+.day-snowy {
+    background-image: url(./assets/day/snowy.jpg);
+}
+
+.night-clear {
+    background-image: url(./assets/night/clear.jpg);
+}
+
+.night-cloudy {
+    background-image: url(./assets/night/cloudy.jpg);
+}
+
+.night-rainy {
+    background-image: url(./assets/night/rainy.jpg);
+}
+
+.night-snowy {
+    background-image: url(./assets/night/snowy.jpg);
 }
 
 /* ===== Container ===== */

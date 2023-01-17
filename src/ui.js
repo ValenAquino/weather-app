@@ -9,11 +9,12 @@ class UI {
     
     render(weather_data) {
         if(weather_data == 404) {
-            alert("Ubicación no encontrada");
+            alert("Not found");
         }
         else {
             this.widget.render(weather_data);
             this.aside.render(weather_data);
+            this.changeBackground(weather_data.weather[0].main, weather_data.timezone);
         }
     }
     
@@ -22,6 +23,36 @@ class UI {
         btn.addEventListener('click', (e) => {
             handleRequest(weather.city, weather.country);
         });
+    }
+
+    changeBackground(cond, timezone){
+        let body = document.querySelector("#body");
+        let bg = '';
+
+        alert(cond);
+    
+        if(isDay(dateBuilder(timezone).hours)) {
+            bg += 'day';
+        }
+        else {
+            bg += 'night';
+        }
+
+        if(cond.includes("Snow")) {
+            bg += "-snowy";
+        }
+        else if(cond.includes("Clouds")) {
+            bg += "-cloudy";
+        }
+        else if(cond.includes("Clear")) {
+            bg += "-clear";
+        }
+        else if(cond.includes("Rain")) {
+            bg += "-rainy";
+        }
+
+        body.classList = "";
+        body.classList.add(bg);
     }
 
 }
@@ -100,6 +131,12 @@ class SearchHandler {
             return this.trd_search;
         }
     }
+}
+
+/* ===== Utilities ===== */
+
+function isDay(hour) {
+    return (hour <= 19 &&  hour <= 6);
 }
 
 function dateBuilder(timezone) {

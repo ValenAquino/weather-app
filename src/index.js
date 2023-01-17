@@ -4,20 +4,17 @@ import { UI } from './ui';
 import { Weather } from './weather';
 import { Storage } from './storage';
 
-const submit_btn = document.querySelector("#submit-btn");
-let latest_searches = [];
 const ui = new UI();
+const form = document.querySelector(".location-form");
 
-
-submit_btn.addEventListener("click", (e) => {
+form.addEventListener("submit", (e) => {
     const city = document.querySelector("#city-input").value;
     const country = document.querySelector("#country-input").value;
-    const form = document.querySelector(".location-form");
     
     if(city.length == 0 || country.length == 0)
-    alert("Debes completar los campos");
+        alert("Please, enter city and country");
     else
-    handleRequest(city, country);
+        handleRequest(city, country);
     
     e.preventDefault();
     form.reset();
