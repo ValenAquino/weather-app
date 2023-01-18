@@ -128,7 +128,7 @@ class SearchHandler {
 /* ===== Utilities ===== */
 
 function isDay(hour) {
-  return hour <= 19 && hour <= 6;
+  return hour <= 19 && hour >= 6;
 }
 
 function dateBuilder(timezone) {
